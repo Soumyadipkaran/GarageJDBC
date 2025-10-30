@@ -1,4 +1,5 @@
 import entity.Customer;
+import entity.Vehicle;
 import service.BillingService;
 
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ public class Main {
 
         BillingService service = new BillingService();
         while(true){
-            System.out.println("1. Add Customer \n2. Generate Invoice \n3. Show Invoice \nEXIT");
+            System.out.println("1. Add Customer \n2. Add Vehicles \n3. Generate Invoice \n4. Show Invoice \n5. EXIT");
             int ch = sc.nextInt();
             switch (ch){
                 case 1:
@@ -23,6 +24,17 @@ public class Main {
                     service.customerService.addCustomer(new Customer(0,name,phone));
                     break;
                 case 2:
+                    System.out.println("<---Adding Vehicles--->");
+                    System.out.println("Customer_id: ");
+                    String cs = sc.next();
+                    int csid = Integer.parseInt(cs);
+                    System.out.println("Number_Plate: ");
+                    String np = sc.next();
+                    System.out.println("Model: ");
+                    String md = sc.next();
+                    service.vehicleService.addVehicle(new Vehicle(0,csid,np, md));
+                    break;
+                case 3:
                     System.out.println("Enter customer ID: ");
                     int cid = sc.nextInt();
                     System.out.println("Enter vehicle ID: ");
@@ -36,9 +48,9 @@ public class Main {
                     }
                     service.createInvoice(cid,vid,list);
                     break;
-                case 3:
-                    service.showAllInvoices();
                 case 4:
+                    service.showAllInvoices();
+                case 5:
                     System.exit(0);
                 default:
                     System.out.println("Not Valid");
